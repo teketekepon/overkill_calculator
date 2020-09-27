@@ -25,9 +25,9 @@ class App(ttk.Frame):
 
     def attack(self):
         try:
-            x = self.damege.get()
-            y = self.bosshp.get()
-        except tk.TclError:
+            x = int(self.damege.get())
+            y = int(self.bosshp.get())
+        except Exception:
             t = 'Error!'
         else:
             if y - x > 0 or x == 0:  # 討伐に至らない場合
@@ -79,10 +79,11 @@ class Softkey(ttk.Frame):
         master.bind_all("<plus>", self.state_key)
 
     def on_click_entry(self, event):
-        if self.focus_get() == self.a.hp_entry:
+        focus = self.focus_get()
+        if focus == self.a.hp_entry:
             self.a.st.set(False)
             self.sbutton['text'] = u'ボス残り体力'
-        if self.focus_get() == self.a.dmg_entry:
+        if focus == self.a.dmg_entry:
             self.a.st.set(True)
             self.sbutton['text'] = u'推定ダメージ'
 
@@ -97,33 +98,39 @@ class Softkey(ttk.Frame):
         st = self.a.st.get()
         if st:
             try:
-                self.a.damege.set(self.a.damege.get()*10+n)
-            except tk.TclError:
-                self.a.damege.set(n)
+                m = int(self.a.damege.get())
+                self.a.damege.set(str(m*10+n))
+            except Exception:
+                self.a.damege.set(str(n))
         else:
             try:
-                self.a.bosshp.set(self.a.bosshp.get()*10+n)
-            except tk.TclError:
-                self.a.bosshp.set(n)
+                m = int(self.a.bosshp.get())
+                self.a.bosshp.set(str(m*10+n))
+            except Exception:
+                self.a.bosshp.set(str(n))
 
     def back(self):
         st = self.a.st.get()
         try:
             if st:
-                self.a.damege.set(self.a.damege.get()//10)
+                m = int(self.a.damege.get())
+                self.a.damege.set(str(m//10))
             else:
-                self.a.bosshp.set(self.a.bosshp.get()//10)
-        except tk.TclError:
+                m = int(self.a.bosshp.get())
+                self.a.bosshp.set(str(m//10))
+        except Exception:
             pass
 
     def tens(self):
         st = self.a.st.get()
         try:
             if st:
-                self.a.damege.set(self.a.damege.get()*10000)
+                m = int(self.a.damege.get())
+                self.a.damege.set(str(m*10000))
             else:
-                self.a.bosshp.set(self.a.bosshp.get()*10000)
-        except tk.TclError:
+                m = int(self.a.bosshp.get())
+                self.a.bosshp.set(str(m*10000))
+        except Exception:
             pass
 
     def state_key(self, event):
