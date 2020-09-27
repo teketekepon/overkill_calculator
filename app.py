@@ -34,7 +34,12 @@ class App(ttk.Frame):
                 t = '残りHP: {}'.format(y-x)
                 self.bosshp.set(y-x)
             else:  # 討伐した場合
-                t = '持ち越し時間は{:.1f}秒です'.format((1-y/x)*90+20)
+                r = int((1-y/x)*90+20)
+                if r > 90:
+                    t = '持ち越し時間は90秒です'
+                else:
+                    t = '持ち越し時間は{}秒です'.format(r)
+
         self.result.configure(state='normal')
         self.result.delete('1.0', 'end')
         self.result.insert('1.0', t)
