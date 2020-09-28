@@ -30,7 +30,8 @@ class App(ttk.Frame):
         else:
             if y - x > 0 or x == 0:  # 討伐に至らない場合
                 t = '残りHP: {}'.format(y-x)
-                self.bosshp.set(y-x)
+                self.bosshp.set(str(y-x))
+                self.damege.set('')
             else:  # 討伐した場合
                 r = int((1-y/x)*90+20)
                 if r > 90:
