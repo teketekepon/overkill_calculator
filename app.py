@@ -1,14 +1,14 @@
 
 import tkinter.ttk as ttk
 import tkinter as tk
-from tkinter.ttk import Widget
+# from tkinter.ttk import Widget  テーマ適用時に必要
 
 
 class App(ttk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.pack()
-        self.master.title(u'持ち越し計算機')
+        self.master.title('持ち越し計算機')
         self.master.minsize(255, 130)
         self.master.maxsize(255, 265)
         # Define Variables
@@ -79,15 +79,6 @@ class Softkey(ttk.Frame):
         master.bind_all("<minus>", self.state_key)
         master.bind_all("<plus>", self.state_key)
 
-    def click_entry(self, event):
-        focus = self.focus_get()
-        if focus == self.a.hp_entry:
-            self.a.st.set(False)
-            self.sbutton['text'] = 'ボス残り体力'
-        if focus == self.a.dmg_entry:
-            self.a.st.set(True)
-            self.sbutton['text'] = '推定ダメージ'
-
     def toggle(self):
         self.tgl = not self.tgl
         if self.tgl:
@@ -109,30 +100,58 @@ class Softkey(ttk.Frame):
                 self.a.bosshp.set(str(m*10+n))
             except Exception:
                 self.a.bosshp.set(str(n))
-
-    def back(self):
-        st = self.a.st.get()
-        try:
-            if st:
-                m = int(self.a.damege.get())
-                self.a.damege.set(str(m//10))
-            else:
-                m = int(self.a.bosshp.get())
-                self.a.bosshp.set(str(m//10))
-        except Exception:
-            pass
-
+    
     def tens(self):
         st = self.a.st.get()
         try:
             if st:
                 m = int(self.a.damege.get())
                 self.a.damege.set(str(m*10000))
+                # self.a.damege.set(self.a.damege.get() + '0000') 
             else:
                 m = int(self.a.bosshp.get())
                 self.a.bosshp.set(str(m*10000))
         except Exception:
             pass
+
+    def back(self):
+        st = self.a.st.get()
+        try:
+            if st:
+                m = self.a.damege.get()
+                self.a.damege.set(m[0:-1])
+            else:
+                m = self.a.bosshp.get()
+                self.a.bosshp.set(m[0:-1])
+        except Exception:
+            pass
+    
+    def reset(self):
+        self.a.bosshp.set('')
+        self.a.damege.set('')
+        self.a.result.configure(state='normal')
+        self.a.result.delete('1.0', 'end')
+        self.a.result.configure(state='disabled')
+        return
+    
+    def state_button(self):
+        st = self.a.st.get()
+        if st:
+            self.a.hp_entry.focus_set()
+            self.sbutton['text'] = 'ボス残り体力'
+        else:
+            self.a.dmg_entry.focus_set()
+            self.sbutton['text'] = '推定ダメージ'
+        self.a.st.set(not st)
+
+    def click_entry(self, event):
+        focus = self.focus_get()
+        if focus == self.a.hp_entry:
+            self.a.st.set(False)
+            self.sbutton['text'] = 'ボス残り体力'
+        if focus == self.a.dmg_entry:
+            self.a.st.set(True)
+            self.sbutton['text'] = '推定ダメージ'
 
     def state_key(self, event):
         st = self.a.st.get()
@@ -149,24 +168,6 @@ class Softkey(ttk.Frame):
             self.sbutton['text'] = '推定ダメージ'
         self.a.st.set(not st)
 
-    def state_button(self):
-        st = self.a.st.get()
-        if st:
-            self.a.hp_entry.focus_set()
-            self.sbutton['text'] = 'ボス残り体力'
-        else:
-            self.a.dmg_entry.focus_set()
-            self.sbutton['text'] = '推定ダメージ'
-        self.a.st.set(not st)
-
-    def reset(self):
-        self.a.bosshp.set('')
-        self.a.damege.set('')
-        self.a.result.configure(state='normal')
-        self.a.result.delete('1.0', 'end')
-        self.a.result.configure(state='disabled')
-        return
-
     def create_widgets(self):
         # tenkey1-9
         for i in range(1, 10):
@@ -175,7 +176,7 @@ class Softkey(ttk.Frame):
             ttk.Button(self.softkey, text='{}'.format(i), command=lambda index=i:
                        self.ins(index)).grid(column=column, row=row)
         # 1万倍
-        ttk.Button(self.softkey, text=u'万',
+        ttk.Button(self.softkey, text='万',
                    command=self.tens).grid(column=0, row=3)
         # 0
         ttk.Button(self.softkey, text='0',
