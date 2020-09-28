@@ -13,9 +13,7 @@ class App(ttk.Frame):
         self.master.maxsize(255, 265)
         # Define Variables
         self.bosshp = tk.StringVar()
-        self.bosshp.set('')
         self.damege = tk.StringVar()
-        self.damege.set('')
         self.st = tk.BooleanVar(False)
         # Criate Widgets
         self.create_widgets()
@@ -59,8 +57,6 @@ class App(ttk.Frame):
         self.hp_entry.grid(column=1, row=1, padx=10, pady=5)
         self.dmg_entry = ttk.Entry(self, textvariable=self.damege, width=10)
         self.dmg_entry.grid(column=1, row=2, padx=10, pady=5)
-        # self.toggle_softkey = ttk.Button(self, text='ソフトキー切り替え',
-        #                                  command=self.toggle)
 
 
 class Softkey(ttk.Frame):
@@ -74,7 +70,7 @@ class Softkey(ttk.Frame):
         self.tgl = False
         self.create_widgets()
         # Binding Keys
-        master.bind_all("<Button-1>", self.on_click_entry)
+        master.bind_all("<Button-1>", self.click_entry)
         master.bind_all("<Delete>", lambda *o: self.reset())
         master.bind_all("<period>", lambda *o: self.reset())
         master.bind_all("<Tab>", self.state_key)
@@ -83,14 +79,14 @@ class Softkey(ttk.Frame):
         master.bind_all("<minus>", self.state_key)
         master.bind_all("<plus>", self.state_key)
 
-    def on_click_entry(self, event):
+    def click_entry(self, event):
         focus = self.focus_get()
         if focus == self.a.hp_entry:
             self.a.st.set(False)
-            self.sbutton['text'] = u'ボス残り体力'
+            self.sbutton['text'] = 'ボス残り体力'
         if focus == self.a.dmg_entry:
             self.a.st.set(True)
-            self.sbutton['text'] = u'推定ダメージ'
+            self.sbutton['text'] = '推定ダメージ'
 
     def toggle(self):
         self.tgl = not self.tgl
@@ -147,20 +143,20 @@ class Softkey(ttk.Frame):
                 self.a.bosshp.set(self.a.bosshp.get().rstrip('+-*/'))
         if st:
             self.a.hp_entry.focus_set()
-            self.sbutton['text'] = u'ボス残り体力'
+            self.sbutton['text'] = 'ボス残り体力'
         else:
             self.a.dmg_entry.focus_set()
-            self.sbutton['text'] = u'推定ダメージ'
+            self.sbutton['text'] = '推定ダメージ'
         self.a.st.set(not st)
 
     def state_button(self):
         st = self.a.st.get()
         if st:
             self.a.hp_entry.focus_set()
-            self.sbutton['text'] = u'ボス残り体力'
+            self.sbutton['text'] = 'ボス残り体力'
         else:
             self.a.dmg_entry.focus_set()
-            self.sbutton['text'] = u'推定ダメージ'
+            self.sbutton['text'] = '推定ダメージ'
         self.a.st.set(not st)
 
     def reset(self):
@@ -176,7 +172,7 @@ class Softkey(ttk.Frame):
         for i in range(1, 10):
             column = (i+2) % 3
             row = -((i-1)//3)+2
-            ttk.Button(self.softkey, text=f'{i}', command=lambda index=i:
+            ttk.Button(self.softkey, text='{}'.format(i), command=lambda index=i:
                        self.ins(index)).grid(column=column, row=row)
         # 1万倍
         ttk.Button(self.softkey, text=u'万',
@@ -190,8 +186,8 @@ class Softkey(ttk.Frame):
         # reset
         ttk.Button(self.softkey, text='Reset',
                    command=self.reset).grid(column=0, row=4)
-        # change state
-        self.sbutton = ttk.Button(self.softkey, text=u'ボス残り体力',
+        # state
+        self.sbutton = ttk.Button(self.softkey, text='ボス残り体力',
                                   command=self.state_button)
         self.sbutton.grid(column=1, row=4)
         # attack
