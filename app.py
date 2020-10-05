@@ -29,7 +29,7 @@ class App(ttk.Frame):
             t = 'Error!'
         else:
             if y - x > 0 or x == 0:  # 討伐に至らない場合
-                t = f'残りHP: {x-y}'
+                t = f'残りHP: {y-x}'
                 self.bosshp.set(str(y-x))
                 self.damege.set('')
             else:  # 討伐した場合
