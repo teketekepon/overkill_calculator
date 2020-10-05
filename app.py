@@ -29,7 +29,7 @@ class App(ttk.Frame):
             t = 'Error!'
         else:
             if y - x > 0 or x == 0:  # 討伐に至らない場合
-                t = '残りHP: {}'.format(y-x)
+                t = f'残りHP: {x-y}'
                 self.bosshp.set(str(y-x))
                 self.damege.set('')
             else:  # 討伐した場合
@@ -37,7 +37,7 @@ class App(ttk.Frame):
                 if r > 90:
                     t = '持ち越し時間は90秒です'
                 else:
-                    t = '持ち越し時間は{}秒です'.format(r)
+                    t = f'持ち越し時間は{r}秒です'
 
         self.result.configure(state='normal')
         self.result.delete('1.0', 'end')
@@ -101,14 +101,14 @@ class Softkey(ttk.Frame):
                 self.a.bosshp.set(str(m*10+n))
             except Exception:
                 self.a.bosshp.set(str(n))
-    
+
     def tens(self):
         st = self.a.st.get()
         try:
             if st:
                 m = int(self.a.damege.get())
                 self.a.damege.set(str(m*10000))
-                # self.a.damege.set(self.a.damege.get() + '0000') 
+                # self.a.damege.set(self.a.damege.get() + '0000')
             else:
                 m = int(self.a.bosshp.get())
                 self.a.bosshp.set(str(m*10000))
@@ -126,7 +126,7 @@ class Softkey(ttk.Frame):
                 self.a.bosshp.set(m[0:-1])
         except Exception:
             pass
-    
+
     def reset(self):
         self.a.bosshp.set('')
         self.a.damege.set('')
@@ -134,7 +134,7 @@ class Softkey(ttk.Frame):
         self.a.result.delete('1.0', 'end')
         self.a.result.configure(state='disabled')
         return
-    
+
     def state_button(self):
         st = self.a.st.get()
         if st:
@@ -174,7 +174,7 @@ class Softkey(ttk.Frame):
         for i in range(1, 10):
             column = (i+2) % 3
             row = -((i-1)//3)+2
-            ttk.Button(self.softkey, text='{}'.format(i), command=lambda index=i:
+            ttk.Button(self.softkey, text=f'{i}', command=lambda index=i:
                        self.ins(index)).grid(column=column, row=row)
         # 1万倍
         ttk.Button(self.softkey, text='万',
