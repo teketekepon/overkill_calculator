@@ -6,8 +6,8 @@ When you try to "Overkill", you can calculate the carryover time.
 
 ## How to use
 
-Required python =< 3.7
-Run "app_eng.py"
+Require python3.7 or higher environment.
+Run "app_eng.py".
 
 Input Enemy HP and Damage and click Enter calculate that.
 
