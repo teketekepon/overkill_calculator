@@ -60,13 +60,13 @@ class App(ttk.Frame):
     def create_widgets(self):
         # Text
         self.result = tk.Text(self, font=('MeiryoUI', 13), height=1, width=26)
-        self.result.insert('1.0', u'ここに結果が表示されます')
+        self.result.insert('1.0', 'ここに結果が表示されます')
         self.result.configure(state='disabled')
         self.result.grid(row=0, column=0, columnspan=2, pady=10)
         # Label
-        ttk.Label(self, text=u'ボス残り体力', font=('游ゴシック', 13)
+        ttk.Label(self, text='ボス残り体力', font=('游ゴシック', 13)
                   ).grid(column=0, row=1, padx=5)
-        ttk.Label(self, text=u'推定ダメージ', font=('游ゴシック', 13)
+        ttk.Label(self, text='推定ダメージ', font=('游ゴシック', 13)
                   ).grid(column=0, row=2, padx=5)
         # Entry
         self.hp_entry = ttk.Entry(self, textvariable=self.bosshp, width=10)
@@ -111,7 +111,6 @@ class App(ttk.Frame):
             if self.st.get():
                 m = int(self.damege.get())
                 self.damege.set(str(m*10000))
-                # self.damege.set(self.damege.get() + '0000')
             else:
                 m = int(self.bosshp.get())
                 self.bosshp.set(str(m*10000))
