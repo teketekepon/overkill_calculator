@@ -2,7 +2,7 @@
 
 This app for the clan battle in Princess Connect Re:Dive.
 
-When you try to "Overkill", you can calculate the carry-over time.
+When you try to "Overkill", you can calculate the carryover time.
 
 ## How to use
 
@@ -26,13 +26,11 @@ Can use soft keyboard on left click "Toggle Softkey" button.
 
 ### About calculation
 
-Enemy hp is higher than damage, the damage is subtracted from hp, and enemy hp input will be updated to that value.
-
-If two or three or more players attacking same time, you can easily calculate the damage by simply entering the damage, with the first player confirming, the second player confirming, and so on.
+If enemy hp is higher than damage, hp is subtracted from damage, and enemy hp field will be updated to that value.
 
 If damage exceeds enemy hp, the carryover time will be displayed.
 
-Translated with www.DeepL.com/Translator (free version)
+If two or three or more players attacking same time, you can easily calculate the damage by simply entering the damage, with the first player confirming, the second player confirming, and so on.
 
 ## Screen Shot
 
