@@ -13,7 +13,7 @@ class App(ttk.Frame):
         self.master.maxsize(255, 265)
         # Define Variables
         self.bosshp = tk.StringVar()
-        self.damege = tk.StringVar()
+        self.damage = tk.StringVar()
         self.st = tk.BooleanVar(False)
         self.tgl = False
         # Criate Widgets
@@ -37,7 +37,7 @@ class App(ttk.Frame):
 
     def attack(self):
         try:
-            x = int(self.damege.get())
+            x = int(self.damage.get())
             y = int(self.bosshp.get())
         except Exception:
             t = 'Error!'
@@ -45,7 +45,7 @@ class App(ttk.Frame):
             if y - x > 0 or x == 0:  # 討伐に至らない場合
                 t = f'残りHP: {y-x}'
                 self.bosshp.set(str(y-x))
-                self.damege.set('')
+                self.damage.set('')
             else:  # 討伐した場合
                 r = int((1-y/x)*90+20)
                 if r > 90:
@@ -71,7 +71,7 @@ class App(ttk.Frame):
         # Entry
         self.hp_entry = ttk.Entry(self, textvariable=self.bosshp, width=10)
         self.hp_entry.grid(column=1, row=1, padx=10, pady=5)
-        self.dmg_entry = ttk.Entry(self, textvariable=self.damege, width=10)
+        self.dmg_entry = ttk.Entry(self, textvariable=self.damage, width=10)
         self.dmg_entry.grid(column=1, row=2, padx=10, pady=5)
         ttk.Button(self, text='ソフトキー切り替え',
                    command=self.toggle).grid(column=0, row=3, columnspan=2)
@@ -95,10 +95,10 @@ class App(ttk.Frame):
     def ins(self, n):
         if self.st.get():
             try:
-                m = int(self.damege.get())
-                self.damege.set(str(m*10+n))
+                m = int(self.damage.get())
+                self.damage.set(str(m*10+n))
             except Exception:
-                self.damege.set(str(n))
+                self.damage.set(str(n))
         else:
             try:
                 m = int(self.bosshp.get())
@@ -109,8 +109,8 @@ class App(ttk.Frame):
     def tens(self):
         try:
             if self.st.get():
-                m = int(self.damege.get())
-                self.damege.set(str(m*10000))
+                m = int(self.damage.get())
+                self.damage.set(str(m*10000))
             else:
                 m = int(self.bosshp.get())
                 self.bosshp.set(str(m*10000))
@@ -120,8 +120,8 @@ class App(ttk.Frame):
     def back(self):
         try:
             if self.st.get():
-                m = self.damege.get()
-                self.damege.set(m[0:-1])
+                m = self.damage.get()
+                self.damage.set(m[0:-1])
             else:
                 m = self.bosshp.get()
                 self.bosshp.set(m[0:-1])
@@ -130,7 +130,7 @@ class App(ttk.Frame):
 
     def reset(self):
         self.bosshp.set('')
-        self.damege.set('')
+        self.damage.set('')
         self.result.configure(state='normal')
         self.result.delete('1.0', 'end')
         self.result.configure(state='disabled')
@@ -149,7 +149,7 @@ class App(ttk.Frame):
         st = self.st.get()
         if not event.keysym == 'Tab':
             if st:
-                self.damege.set(self.damege.get().rstrip('+-*/'))
+                self.damage.set(self.damage.get().rstrip('+-*/'))
             else:
                 self.bosshp.set(self.bosshp.get().rstrip('+-*/'))
         if st:
