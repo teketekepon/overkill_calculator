@@ -1,4 +1,4 @@
-
+import math
 import tkinter.ttk as ttk
 import tkinter as tk
 # from tkinter.ttk import Widget  テーマ適用時に必要
@@ -47,7 +47,7 @@ class App(ttk.Frame):
                 self.bosshp.set(str(y-x))
                 self.damage.set('')
             else:  # 討伐した場合
-                r = int((1-y/x)*90+20)
+                r = math.ceil((1-y/x)*90+20)
                 if r > 90:
                     t = '持ち越し時間は90秒です'
                 else:
