@@ -1,4 +1,4 @@
-
+import math
 import tkinter.ttk as ttk
 import tkinter as tk
 
@@ -46,7 +46,7 @@ class App(ttk.Frame):
                 self.bosshp.set(str(y-x))
                 self.damage.set('')
             else:  # 討伐した場合
-                r = int((1-y/x)*90+20)
+                r = math.ceil((1-y/x)*90+20)
                 if r > 90:
                     t = 'Carry-over time is 90 seconds'
                 else:
@@ -63,9 +63,9 @@ class App(ttk.Frame):
         self.result.configure(state='disabled')
         self.result.grid(row=0, column=0, columnspan=2, pady=10)
         # Label
-        ttk.Label(self, text='Enemy HP', font=('游ゴシック', 13)
+        ttk.Label(self, text='Enemy HP', font=('YuGothic', 13)
                   ).grid(column=0, row=1, padx=5)
-        ttk.Label(self, text='Damage', font=('游ゴシック', 13)
+        ttk.Label(self, text='Damage', font=('YuGothic', 13)
                   ).grid(column=0, row=2, padx=5)
         # Entry
         self.hp_entry = ttk.Entry(self, textvariable=self.bosshp, width=10)
